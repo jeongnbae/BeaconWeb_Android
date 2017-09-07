@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.web.beaconweb.MainActivity">
+
+    <TextView
+        android:id="@+id/mainLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OOO커피"
+        android:layout_marginTop="71dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/inputName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="이름"
+        android:layout_marginBottom="32dp"
+        android:layout_above="@+id/inputBirth"
+        android:layout_centerHorizontal="true"
+        android:maxLength="10"/>
+
+    <EditText
+        android:id="@+id/inputBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:hint="생년월일(앞 6자리)"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/inputName"
+        android:maxLength="6"/>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="190dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@+id/inputBirth"
+        android:layout_alignStart="@+id/inputBirth"
+        android:layout_marginTop="15dp"
+        android:layout_alignEnd="@+id/inputBirth">
+
+        <RadioButton
+            android:id="@+id/selectGender1"
+            android:layout_width="79dp"
+            android:layout_height="42dp"
+            android:layout_alignStart="@+id/inputTel"
+            android:layout_below="@+id/inputBirth"
+            android:layout_toStartOf="@+id/mainLogo"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="19dp"
+            android:text="남성"
+            android:layout_weight="0.59"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/selectGender2"
+            android:layout_width="79dp"
+            android:layout_height="42dp"
+            android:layout_above="@+id/button"
+            android:layout_marginBottom="19dp"
+            android:layout_marginStart="37dp"
+            android:layout_toEndOf="@+id/inputTel"
+            android:layout_weight="0.20"
+            android:text="여성" />
+
+    </RadioGroup>
+
+
+    <EditText
+        android:id="@+id/inputTel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:hint="휴대폰 번호"
+        android:layout_below="@+id/radioGroup"
+        android:layout_alignStart="@+id/radioGroup"
+        android:maxLength="11"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이용자 등록"
+        android:layout_below="@+id/inputTel"
+        android:layout_alignStart="@+id/inputTel"
+        android:layout_marginTop="42dp"
+        android:layout_alignEnd="@+id/inputTel" />
+
+</RelativeLayout>
