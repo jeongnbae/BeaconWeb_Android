@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.web.beaconweb.MainActivity">
+    tools:context="com.web.beacon_app.MainActivity">
 
     <TextView
         android:id="@+id/mainLogo"
@@ -94,6 +94,7 @@
         android:layout_below="@+id/inputTel"
         android:layout_alignStart="@+id/inputTel"
         android:layout_marginTop="42dp"
-        android:layout_alignEnd="@+id/inputTel" />
+        android:layout_alignEnd="@+id/inputTel"
+        android:onClick="login"/>
 
 </RelativeLayout>

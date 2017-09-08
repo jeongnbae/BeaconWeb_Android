@@ -3,11 +3,13 @@ package com.web.beacon_app;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,18 +24,30 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList memberList;
 
+    private TextView mainLogo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         memberList = new ArrayList();
-
+        mainLogo = (TextView) findViewById(R.id.mainLogo);
         addButtonListener();
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void login(View view){
+
+        String name = memberList.get(0).toString();
+        String birth = memberList.get(1).toString();
+        String gender = memberList.get(2).toString();
+        String tel = memberList.get(3).toString();
+
+        new SigninActivity(this, mainLogo).execute(name, birth, gender, tel);
     }
 
     public void addButtonListener(){
@@ -118,7 +132,11 @@ public class MainActivity extends AppCompatActivity {
                     inputTel.setText("");
                     Toast.makeText(getApplicationContext(), "올바른 전화번호 입력하세요.",Toast.LENGTH_LONG).show();
                 }
-                Toast.makeText(getApplicationContext(), memberList.toString(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), memberList.toString(),Toast.LENGTH_LONG).show();
+                Log.d("name",memberList.get(0).toString());
+                Log.d("birth",memberList.get(1).toString());
+                Log.d("gender",memberList.get(2).toString());
+                Log.d("tel",memberList.get(3).toString());
             }
         });
 
