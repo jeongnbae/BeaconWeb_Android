@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText inputName, inputBirth, inputTel;
     private RadioButton selectGender1, selectGender2, radioGroup;
-    private Button button;
 
     private String gender;
 
@@ -42,12 +41,38 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View view){
 
+        if(inputName.getText().length() == 0 || inputBirth.getText().length() == 0 || inputTel.getText().length() == 0){
+            Toast.makeText(getApplicationContext(), "전부 입력해 주세요.",Toast.LENGTH_LONG).show();
+            return;
+        }else{
+            memberList.add(inputName.getText());
+            memberList.add(inputBirth.getText());
+            if(gender == null){
+                memberList.add("남성");
+            }else{
+                memberList.add(gender);
+            }
+        }
+
+        if(inputTel.getText().length() >=9 && inputTel.getText().length() <=11){
+            memberList.add(inputTel.getText());
+        }else{
+            inputTel.setText("");
+            Toast.makeText(getApplicationContext(), "올바른 전화번호 입력하세요.",Toast.LENGTH_LONG).show();
+        }
+        //Toast.makeText(getApplicationContext(), memberList.toString(),Toast.LENGTH_LONG).show();
+
         String name = memberList.get(0).toString();
         String birth = memberList.get(1).toString();
         String gender = memberList.get(2).toString();
         String tel = memberList.get(3).toString();
 
-        new SigninActivity(this, mainLogo).execute(name, birth, gender, tel);
+        Log.d("name",name);
+        Log.d("birth",birth);
+        Log.d("gender",gender);
+        Log.d("tel",tel);
+
+        new SigninActivity(this).execute(name, birth, gender, tel);
     }
 
     public void addButtonListener(){
@@ -106,40 +131,5 @@ public class MainActivity extends AppCompatActivity {
                 setGender(gender);
             }
         });
-
-        button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(inputName.getText().length() == 0 || inputBirth.getText().length() == 0 || inputTel.getText().length() == 0){
-                    Toast.makeText(getApplicationContext(), "전부 입력해 주세요.",Toast.LENGTH_LONG).show();
-                    return;
-                }else{
-                    memberList.add(inputName.getText());
-                    memberList.add(inputBirth.getText());
-                    if(gender == null){
-                        memberList.add("남성");
-                    }else{
-                        memberList.add(gender);
-                    }
-                }
-
-                if(inputTel.getText().length() >=9 && inputTel.getText().length() <=11){
-                    memberList.add(inputTel.getText());
-                }else{
-                    inputTel.setText("");
-                    Toast.makeText(getApplicationContext(), "올바른 전화번호 입력하세요.",Toast.LENGTH_LONG).show();
-                }
-                //Toast.makeText(getApplicationContext(), memberList.toString(),Toast.LENGTH_LONG).show();
-                Log.d("name",memberList.get(0).toString());
-                Log.d("birth",memberList.get(1).toString());
-                Log.d("gender",memberList.get(2).toString());
-                Log.d("tel",memberList.get(3).toString());
-            }
-        });
-
-
     }
 }

@@ -18,16 +18,14 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SigninActivity  extends AsyncTask{
-   private TextView mainLogo;
-   private Context context;
-   private ArrayList memberList;
 
-   //flag 0 means get and 1 means post.(By default it is get.)
-   public SigninActivity(Context context, TextView mainLogo) {
+   Context context;
+
+   public SigninActivity(Context context) {
       this.context = context;
-      this.mainLogo = mainLogo;
    }
 
    protected void onPreExecute(){
@@ -43,35 +41,24 @@ public class SigninActivity  extends AsyncTask{
             String gender = arg0[2].toString();
             String tel = arg0[3].toString();
 
-            String link="http://192.168.219.101/login.php";
-            String data  = URLEncoder.encode("userName", "UTF-8") + "=" +
-               URLEncoder.encode(name, "UTF-8");
-            data += "&" + birth;
-            data += "&" + URLEncoder.encode("userGender", "UTF-8") + "=" +
-                    URLEncoder.encode(gender, "UTF-8");
-            data += "&" + tel;
-
+            String link="http://192.168.219.101/insertValue.php?userName="+name+"&userBirth="+birth+"&userGender="+gender+"&userTel="+tel;
             URL url = new URL(link);
-            URLConnection conn = url.openConnection();
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet();
+            request.setURI(new URI(link));
+            HttpResponse response = client.execute(request);
+            BufferedReader in = new BufferedReader(new
+                    InputStreamReader(response.getEntity().getContent()));
 
-            conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            StringBuffer sb = new StringBuffer("");
+            String line="";
 
-            wr.write( data );
-            wr.flush();
-
-            BufferedReader reader = new BufferedReader(new
-               InputStreamReader(conn.getInputStream()));
-
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-
-            // Read Server Response
-            while((line = reader.readLine()) != null) {
+            while ((line = in.readLine()) != null) {
                sb.append(line);
                break;
             }
-				
+
+            in.close();
             return sb.toString();
          } catch(Exception e){
             return new String("Exception: " + e.getMessage());
@@ -80,6 +67,12 @@ public class SigninActivity  extends AsyncTask{
 
    @Override
    protected void onPostExecute(Object result){
-      this.mainLogo.setText(result.toString());
+
+       if(!result.toString().equals("Values have been inserted successfully")){
+           Toast.makeText(context, "이미 등록된 사용자 입니다.", Toast.LENGTH_LONG).show();
+       }else{
+           Toast.makeText(context, "사용자 등록이 완료 되었습니다.", Toast.LENGTH_LONG).show();
+       }
+
    }
 }
